@@ -45,14 +45,14 @@ MPI_Datatype make_hi(const Dim3 copyExt, const Dim3 allocExt);
 MPI_Datatype make_hib(const Dim3 copyExt, const Dim3 allocExt);
 
 // make a 3D cube with MPI_Type_create_subarray
-MPI_Datatype make_subarray(const Dim3 copyExt, const Dim3 allocExt);
+MPI_Datatype make_subarray(const Dim3 copyExt, const Dim3 allocExt, int order = MPI_ORDER_C);
 
 // make a 3D cube with a vector of subarray
-MPI_Datatype make_subarray_v(const Dim3 copyExt, const Dim3 allocExt);
+MPI_Datatype make_subarray_v(const Dim3 copyExt, const Dim3 allocExt, int order = MPI_ORDER_C);
 
 // make a 3D cube with MPI_Type_create_subarray and offset
 MPI_Datatype make_off_subarray(const Dim3 copyExt, const Dim3 allocExt,
-                               const Dim3 &off);
+                               const Dim3 &off, int order = MPI_ORDER_C);
 
 // 2d types
 typedef MPI_Datatype (*TypeFactory2D)(const int64_t numBlocks,
