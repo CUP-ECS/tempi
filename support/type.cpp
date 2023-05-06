@@ -155,12 +155,13 @@ MPI_Datatype make_hib(const Dim3 copyExt, const Dim3 allocExt) {
   return fullType;
 }
 
-MPI_Datatype make_subarray(const Dim3 copyExt, const Dim3 allocExt, int order ) {
+MPI_Datatype make_subarray(const Dim3 copyExt, const Dim3 allocExt) {
 
   int ndims = 3;
   int array_of_sizes[3]{int(allocExt[2]), int(allocExt[1]), int(allocExt[0])};
   int array_of_subsizes[3]{int(copyExt[2]), int(copyExt[1]), int(copyExt[0])};
   int array_of_starts[3]{0, 0, 0};
+  int order = MPI_ORDER_C;
 
   MPI_Datatype cube{};
   MPI_Type_create_subarray(ndims, array_of_sizes, array_of_subsizes,
@@ -168,7 +169,7 @@ MPI_Datatype make_subarray(const Dim3 copyExt, const Dim3 allocExt, int order ) 
   return cube;
 }
 
-MPI_Datatype make_subarray_v(const Dim3 copyExt, const Dim3 allocExt, int order ) {
+MPI_Datatype make_subarray_v(const Dim3 copyExt, const Dim3 allocExt) {
 
   MPI_Datatype plane{};
   {
@@ -176,6 +177,7 @@ MPI_Datatype make_subarray_v(const Dim3 copyExt, const Dim3 allocExt, int order 
     int array_of_sizes[2]{int(allocExt[1]), int(allocExt[0])};
     int array_of_subsizes[2]{int(copyExt[1]), int(copyExt[0])};
     int array_of_starts[2]{0, 0};
+    int order = MPI_ORDER_C;
 
     MPI_Type_create_subarray(ndims, array_of_sizes, array_of_subsizes,
                              array_of_starts, order, MPI_BYTE, &plane);
@@ -195,7 +197,7 @@ MPI_Datatype make_subarray_v(const Dim3 copyExt, const Dim3 allocExt, int order 
 }
 
 MPI_Datatype make_off_subarray(const Dim3 copyExt, const Dim3 allocExt,
-                               const Dim3 &off, int order ) {
+                               const Dim3 &off) {
 
   int ndims = 3;
   int array_of_sizes[3]{int(allocExt[0]), int(allocExt[1]), int(allocExt[2])};
@@ -204,7 +206,7 @@ MPI_Datatype make_off_subarray(const Dim3 copyExt, const Dim3 allocExt,
 
   MPI_Datatype cube{};
   MPI_Type_create_subarray(ndims, array_of_sizes, array_of_subsizes,
-                           array_of_starts, order, MPI_BYTE, &cube);
+                           array_of_starts, MPI_ORDER_C, MPI_BYTE, &cube);
   return cube;
 }
 
